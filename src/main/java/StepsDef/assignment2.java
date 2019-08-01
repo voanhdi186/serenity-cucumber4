@@ -106,9 +106,4 @@ public class assignment2 extends BasePage {
                 assert driver.findElements(cards).size() == Integer.valueOf(quantity) ;
         }
     }
-
-
-
-
-
 }
