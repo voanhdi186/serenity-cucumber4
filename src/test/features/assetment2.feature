@@ -11,5 +11,7 @@ Feature: Test
 
     When I want to select INSURERS: FPG Insurance
     When I want to select INSURERS: Malayan Insurance
+
+
     Then The result page should display equal 5 card(s)
 
