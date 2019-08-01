@@ -131,6 +131,11 @@ public class assignment2 extends BasePage {
         clickOn(By.xpath("//a/span[text()='" + item + "']/following-sibling::link"));
     }
 
+    @When("^Close browser$")
+    public void clsoe_browser() throws Exception {
+        closeDriver();
+    }
+
     @Then("^Verify summary text at the top should display: (.*)$")
     public void verify_text_topSummary_contain(String text) throws Exception {
         Thread.sleep(3000);
@@ -159,20 +164,26 @@ public class assignment2 extends BasePage {
         }
     }
 
-    @Then("^Verify the result page should display (.*) (.*) card\\(s\\)$")
-    @Given("^The result page should display (.*) (.*) card\\(s\\)$")
-    public void check_quantity_of_cards_displayed(String math_operator, String quantity) throws Exception {
+    @Then("^The result page should display (.*) (.*) card\\(s\\)$")
+    public void check_quantity_of_cards_displayed(String math_operator, int quantity) throws Exception {
         // TODO: should wait for ajax complete
         Thread.sleep(3000);
 
         By cards = By.xpath("//div[@class='card-wrapper']");
+        int totalOffer = driver.findElements(cards).size();
+        System.out.println("Total offers: " + totalOffer);
+        System.out.println("NUmber to be compare: " + quantity);
+
         switch (math_operator.toLowerCase().trim()){
-            case "less than":
-                assert driver.findElements(cards).size() <= Integer.valueOf(quantity) ;
-            case "more than":
-                assert driver.findElements(cards).size() >= Integer.valueOf(quantity) ;
+            case "less_than":
+                assert totalOffer < quantity ;
+                break;
+            case "more_than":
+                assert totalOffer > quantity ;
+                break;
             case "equal":
-                assert driver.findElements(cards).size() == Integer.valueOf(quantity) ;
+                assert totalOffer == quantity ;
+                break;
         }
     }
 }
