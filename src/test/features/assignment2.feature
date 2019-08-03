@@ -23,19 +23,18 @@ Feature: GB Assignment 2
     And Close browser
 
   @verify-filter-more-option
-  Scenario: Verify Filter More options
+  Scenario Outline: Verify Filter More options
     When I want to extend for more options in filter
-    And Slide the bar Personal Accident to 10 percent
-    Then The result page should display equal 22 card(s)
-    And Slide the bar Medical expenses while traveling to 10 percent
-    Then The result page should display equal 19 card(s)
-    And Slide the bar Trip cancellation to 10 percent
-    Then The result page should display equal 11 card(s)
-    And Slide the bar Trip termination to 20 percent
-    Then The result page should display equal 10 card(s)
-    And Slide the bar Loss of baggage & personal belongings to 10 percent
-    Then The result page should display equal 6 card(s)
+    And Slide the bar <slider> to <percent> percent
+    Then The result page should display <operator> <result> card(s)
     And Close browser
+    Examples:
+      |slider                               |percent  |operator       |result         |
+      |Personal Accident                    |10       |equal          |22             |
+      |Medical expenses while traveling     |20       |equal          |10             |
+      |Trip cancellation                    |30       |equal          |12             |
+      |Trip termination                     |40       |equal          |14             |
+      |Loss of baggage & personal belongings|80       |equal          |0              |
 
   @verify-sort-option
   Scenario: Verify Sort options

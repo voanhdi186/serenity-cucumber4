@@ -148,9 +148,8 @@ public class assignment2Steps extends BasePage {
     @When("^Slide the bar (.*) to (.*) percent$")
     public void close_browser(String name, int percent) throws Exception {
         Thread.sleep(3000);
-
         WebElement minPoint = driver.findElement(By.xpath("//label[contains(text(),'" + name.trim() + "')]/following-sibling::div/div/div[@class='slider-handle min-slider-handle round']"));
-        WebElement sliderTrack = driver.findElement(By.xpath("//div[@class='slider-track']"));
+        WebElement sliderTrack = driver.findElement(By.xpath("//label[contains(text(),'" + name.trim() + "')]/following-sibling::div/div"));
         int trackLength = sliderTrack.getSize().width;
         new Actions(driver).dragAndDropBy(minPoint,trackLength*percent/100,0).perform();
 
@@ -277,7 +276,7 @@ public class assignment2Steps extends BasePage {
     @Then("^The result page should display (.*) (.*) card\\(s\\)$")
     public void check_quantity_of_cards_displayed(String math_operator, int quantity) throws Exception {
         //*math_operator = [less_than,
-//                          more_than,
+//                          greater_than,
 //                          equal]
         // TODO: should wait for ajax complete
         Thread.sleep(3000);
@@ -291,7 +290,7 @@ public class assignment2Steps extends BasePage {
             case "less_than":
                 assert totalOffer < quantity ;
                 break;
-            case "more_than":
+            case "greater_than":
                 assert totalOffer > quantity ;
                 break;
             case "equal":

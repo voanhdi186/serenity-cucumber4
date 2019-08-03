@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty"},
         features = "src/test/features",
         glue = "StepsDef",
-        tags = "@verify-three-option"
+        tags = "@verify-filter-more-option"
 )
 public class CucumberTestSuite {
     static BasePage basePage;
