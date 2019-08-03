@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty"},
         features = "src/test/features",
         glue = "StepsDef",
-        tags = "@verify-filter-option"
+        tags = "@verify-sort-option"
 )
 public class CucumberTestSuite {
     static BasePage basePage;
@@ -22,7 +22,6 @@ public class CucumberTestSuite {
     @BeforeClass
     public static void setUp(){
         basePage = new BasePage();
-
     }
 
 //    @AfterClass

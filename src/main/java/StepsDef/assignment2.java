@@ -6,7 +6,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.concurrent.TimeUnit;
@@ -16,6 +18,10 @@ public class assignment2 extends BasePage {
     By linkInsurance = By.xpath("//a[@href='#Insurance']");
     By linkTravel = By.xpath("//a[@href='#Travel']");
     By btnShowMyResults = By.xpath("//button[@name='product-form-submit']");
+    By radioPromosOnly = By.xpath("//label[contains(text(),'Promos only')]");
+    By radioShowAll = By.xpath("//label[contains(text(),'Show all')]");
+    By btnSeeMore = By.xpath("//a[@class='btn-ripple more']");
+    By btnSeeLess = By.xpath("//a[@class='btn-ripple less']");
 
     @Given("^Open browser and start with url (.*)$")
     public void start_with_url(String url) throws Exception {
@@ -31,6 +37,14 @@ public class assignment2 extends BasePage {
     public void navigate_to_travel(String places) throws Exception {
         clickOn(linkInsurance);
         clickOn(linkTravel);
+    }
+
+    @When("^I want to result page display Promotion: (.*)$")
+    public void select_promotion_type(String type) throws Exception {
+        if (type.trim().equalsIgnoreCase("show all"))
+            clickOn(radioShowAll);
+        else if (type.trim().equalsIgnoreCase("promos only"))
+            clickOn(radioPromosOnly);
     }
 
     @When("^I am looking for (.*) travel plans for (.*) person\\(s\\). I am going to (.*).$")
@@ -131,9 +145,31 @@ public class assignment2 extends BasePage {
         clickOn(By.xpath("//a/span[text()='" + item + "']/following-sibling::link"));
     }
 
+    @When("^Slide the bar (.*) to (.*) percent$")
+    public void close_browser(String name, int percent) throws Exception {
+        Thread.sleep(3000);
+
+        WebElement minPoint = driver.findElement(By.xpath("//label[contains(text(),'" + name.trim() + "')]/following-sibling::div/div/div[@class='slider-handle min-slider-handle round']"));
+        WebElement sliderTrack = driver.findElement(By.xpath("//div[@class='slider-track']"));
+        int trackLength = sliderTrack.getSize().width;
+        new Actions(driver).dragAndDropBy(minPoint,trackLength*percent/100,0).perform();
+
+    }
+
     @When("^Close browser$")
-    public void clsoe_browser() throws Exception {
+    public void close_browser() throws Exception {
         closeDriver();
+    }
+
+    @When("^Wait for (.*) seconds$")
+    public void close_browser(int sec) throws Exception {
+        Thread.sleep(sec*1000);
+    }
+
+    @When("^I want to extend for more options in filter$")
+    public void extend_filter() throws Exception {
+        clickOn(btnSeeMore);
+
     }
 
     @Then("^Verify summary text at the top should display: (.*)$")
@@ -166,6 +202,9 @@ public class assignment2 extends BasePage {
 
     @Then("^The result page should display (.*) (.*) card\\(s\\)$")
     public void check_quantity_of_cards_displayed(String math_operator, int quantity) throws Exception {
+        //*math_operator = [less_than,
+//                          more_than,
+//                          equal]
         // TODO: should wait for ajax complete
         Thread.sleep(3000);
 

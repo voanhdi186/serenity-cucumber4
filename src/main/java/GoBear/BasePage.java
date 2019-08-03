@@ -1,7 +1,6 @@
 package GoBear;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -64,10 +63,10 @@ public class BasePage {
 //        TODO: define page load and ajax loaded completely
     }
 
-    public void executeJScript(String script){
-        JavascriptExecutor js=(JavascriptExecutor)driver;
-        js.executeScript(script);
-    }
+//    public void executeJScript(String script){
+//        JavascriptExecutor js=(JavascriptExecutor)driver;
+//        js.executeScript(script);
+//    }
 
     public void closeDriver(){
         driver.close();
