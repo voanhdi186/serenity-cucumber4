@@ -10,10 +10,11 @@ Feature: GB Assignment 2
 
   @verify-filter-option
   Scenario: Verify Filter options
+    Then The result page should display greater_than 3 card(s)
     When I want to select INSURERS: FPG Insurance
     Then The result page should display less_than 23 card(s)
     When I want to select INSURERS: Malayan Insurance
-    Then The result page should display more_than 2 card(s)
+    Then The result page should display greater_than 2 card(s)
     When I want to select INSURERS: STARR
     Then The result page should display equal 7 card(s)
     When I want to result page display Promotion: Promos only
